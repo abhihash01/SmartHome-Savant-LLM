@@ -7,9 +7,14 @@ import shutil
 import os
 faiss_path = 'FAISS_store'
 class app:
+
+    def __init__(self):
+        #st.set_page_config("Fine tuned Rag applicaiton")
+        pass
+
     def run(self):
         ingest=ingestor()
-        st.set_page_config("Fine tuned Rag applicaiton")
+        #st.set_page_config("Fine tuned Rag applicaiton")
         st.header("Fine Tuned RAG Applicaiton")
 
 
@@ -89,5 +94,6 @@ class app:
         return
 
 if __name__=="__main__":
+    #st.set_page_config("Fine tuned Rag applicaiton")
     application=app()
     application.run()

@@ -8,6 +8,8 @@ import os
 from PIL import Image
 from image_modelling import image_modelling
 
+st.set_page_config(page_title="Test application", page_icon=":rocket:")
+
 faiss_path = 'FAISS_store'
 custom_css = """
     <style>
@@ -49,10 +51,11 @@ custom_css = """
 """
 
 class app:
+    def __init__(self) -> None:
+        pass
     def image_handling(self):
         print("entered image handling")
         st.header("Image Modeler")
-        #input = st.text_input("Extra Instructions", key="input")
         image_handling=image_modelling()
         image_file = st.file_uploader("Select Image", type=["png","jpg","jpeg"])
         if image_file:
@@ -61,8 +64,6 @@ class app:
         submit= st.button("Model my image")
         if submit:
             response= image_handling.run(image_file)
-            #image_data = image_pipeline(image_file)
-            #response = get_gemini_response(input_prompt,image_data,input)
             st.subheader("Here is your response")
             st.write(response)
 
@@ -72,8 +73,8 @@ class app:
 
     def run(self):
         #ingest = ingestor()
-        #st.set_page_config("SmartHome Savant")
         st.header("SmartHome Savant Application")
+        st.title("")
 
         button_pressed = st.sidebar.radio("Select Option", ["Predictor", "Live Image Modelling", "Knowledge Extractor1"])
 
@@ -157,9 +158,12 @@ class app:
             else:
                 st.write("Response: The question field is empty. Enter Question")
 
+def main():
+    
 
+    App = app()
+    App.run()
 
 if __name__ == "__main__":
     st.markdown(custom_css, unsafe_allow_html=True)
-    application = app()
-    application.run()
+    main()

@@ -33,14 +33,19 @@ class image_modelling:
     def run(self,image_file):
 
         input_prompt="""
-        You are an expert nutritionist who can look at food items and can calculate the \
-            total calories in each item. Please provide details of every food item with its respective calories in the format
+        You are an expert in enerfy systems and smart energy devices.\
+            you can look at images and give recommendations on what all can be changed int he setting \
+        to save more energy. Like making change in the arragement of sitting and lighting in real time rooms \
+            or taking enrgy layouts and telling what can be changed to make it better.\
+            . Please provide details of every item with its respective recommendation.\
+            Also give recommendations if anything has to be replaced or remodelled and try to link its market place \
             
-            - Item 1= Total Calories it has
-            - Item 2= Total Calories it has
+            - Recommendation 1= Please do this as changing this will ensure better 
+            - Recommendation 2= Please place the lights at a point like ....
             and so on"""
 
-        
+        input="tell me fast"
+        print(image_file)
         image_data = self.image_pipeline(image_file)
         response = self.get_gemini_response(input_prompt,image_data,input)
         return response
