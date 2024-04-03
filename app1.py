@@ -6,6 +6,7 @@ import validators
 import shutil
 import os
 from PIL import Image
+from image_modelling import image_modelling
 
 faiss_path = 'FAISS_store'
 custom_css = """
@@ -48,24 +49,46 @@ custom_css = """
 """
 
 class app:
+    def image_handling(self):
+        print("entered image handling")
+        st.set_page_config(page_title="Image Modellor")
+        st.header("Image Modeler")
+        #input = st.text_input("Extra Instructions", key="input")
+        image_handling=image_modelling()
+        image_file = st.file_uploader("Select Image", type=["png","jpg","jpeg"])
+        if image_file:
+            image = Image.open(image_file)
+            st.image(image,caption="Here is the image", use_column_width = True)
+        submit= st.button("Model my image")
+        if submit:
+            response= image_handling.run(image_file)
+            st.subheader("Here is your calorie chart")
+            st.write(response)
+
+
+
+
+
     def run(self):
         #ingest = ingestor()
         #st.set_page_config("SmartHome Savant")
         st.header("SmartHome Savant Application")
 
-        button_pressed = st.sidebar.radio("Select Option", ["Predictor", "Live Image Modellor", "Knowledge Extractor"])
+        button_pressed = st.sidebar.radio("Select Option", ["Predictor", "Live Image Modelling", "Knowledge Extractor1"])
 
         if button_pressed == "Predictor":
             # Add functionality for Option 1 here
             pass
-        elif button_pressed == "Live Image Modellor":
-            # Add functionality for Option 2 here
-            pass
-        elif button_pressed == "Knowledge Extractor":
+        elif button_pressed == "Live Image Modelling":
+            print("radio butoon hit")
+            self.image_handling()
+        elif button_pressed == "Knowledge Extractor1":
             #toggle_sidebar = st.sidebar.button("Toggle Sidebar")
             #if toggle_sidebar:
                 #self.toggle_sidebar_content()
-            self.toggle_sidebar_content()
+            print("knowledge extractor hit")
+            #self.toggle_sidebar_content()
+            self.image_handling()
 
     def toggle_sidebar_content(self):
         ingest=ingestor()
