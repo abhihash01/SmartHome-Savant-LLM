@@ -51,7 +51,6 @@ custom_css = """
 class app:
     def image_handling(self):
         print("entered image handling")
-        st.set_page_config(page_title="Image Modellor")
         st.header("Image Modeler")
         #input = st.text_input("Extra Instructions", key="input")
         image_handling=image_modelling()
@@ -62,7 +61,9 @@ class app:
         submit= st.button("Model my image")
         if submit:
             response= image_handling.run(image_file)
-            st.subheader("Here is your calorie chart")
+            #image_data = image_pipeline(image_file)
+            #response = get_gemini_response(input_prompt,image_data,input)
+            st.subheader("Here is your response")
             st.write(response)
 
 
@@ -87,8 +88,7 @@ class app:
             #if toggle_sidebar:
                 #self.toggle_sidebar_content()
             print("knowledge extractor hit")
-            #self.toggle_sidebar_content()
-            self.image_handling()
+            self.toggle_sidebar_content()
 
     def toggle_sidebar_content(self):
         ingest=ingestor()
