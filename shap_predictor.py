@@ -61,6 +61,7 @@ class SHAPPredictor:
         print(shap_values[0])
         shap.force_plot(self.explainer.expected_value, shap_values[0], filtered_df.iloc[0], show=False)
         img = io.BytesIO()
+        plt.show()
         plt.savefig(img,format='png')
         img.seek(0)
 

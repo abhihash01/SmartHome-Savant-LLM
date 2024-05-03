@@ -5,7 +5,30 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 faiss_path="FAISS_store"
 class input_processor:
     def __init__(self) -> None:
-        self.gemini_embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        safety_settings = [
+        {
+            "category": "HARM_CATEGORY_DANGEROUS",
+            "threshold": "BLOCK_NONE",
+        },
+        {
+            "category": "HARM_CATEGORY_HARASSMENT",
+            "threshold": "BLOCK_NONE",
+        },
+        {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "threshold": "BLOCK_NONE",
+        },
+        {
+            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            "threshold": "BLOCK_NONE",
+        },
+        {
+            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+            "threshold": "BLOCK_NONE",
+        }
+    ]
+    
+        self.gemini_embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001",safety_settings=safety_settings)
     
     def KB_exists(self,faiss_path = faiss_path):
         if os.path.exists(faiss_path):

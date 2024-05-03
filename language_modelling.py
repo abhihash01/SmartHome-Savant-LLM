@@ -24,10 +24,12 @@ class language_modelling:
         Next you should give recommendation on how it can be fixed.\
         If its environmental factor or uncontrollable factor, you say it is uncontrollable with the right reasonging
             
-            - Positive factor 1= Full explanation of output and recommendation 
-            - Positive factor 2 = Full explanation of output and recommendation
-            - Negative factor 1= Full explanation of output and recommendaiton
-            - Negative factor 2= Full explanation of output and recommendaiotn
+            Positive Factors
+            - factor 1: Feature name and its value. Full explanation of output and recommendation 
+            - factor 2 : Feature name and its value. Full explanation of output and recommendation
+            Negative Factors
+            - factor 1: Feature name and its value. Full explanation of output and recommendaiton
+            - factor 2: Feature name and its value. Full explanation of output and recommendaiotn
             and so on"""
 
         #input=

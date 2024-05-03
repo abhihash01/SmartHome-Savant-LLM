@@ -14,13 +14,14 @@ import shap
 from shap.explainers import TreeExplainer
 import joblib
 from language_modelling import language_modelling
+import time
 st.set_page_config(page_title="Smart Savant Web", page_icon=":rocket:")
 
 faiss_path = 'FAISS_store'
 custom_css = """
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #000000;
         }
         .sidebar .sidebar-content {
             background-color: #ffffff;
@@ -119,6 +120,25 @@ class app:
                 #st.image(shap_plot_bytes, caption=f'Shap plot for first prediction',use_column_width=True)
                 st.image('shap_force_plot.png', caption='SHAP Plot', use_column_width=True)
 
+    def change_detector(self):
+        st.title('Anamoly Detector')
+        default_start_date = datetime.datetime.strptime('2016/01/01', '%Y/%m/%d').date()
+        default_end_date = datetime.datetime.strptime('2016/12/31', '%Y/%m/%d').date()
+
+        # User input for date range
+        start_date = st.date_input('Start Date', default_start_date)
+
+        end_date = st.date_input('End Date',default_end_date)
+
+        # Predict and explain
+        if st.button('Find Change Points'):
+            with st.spinner('Calculating Change Points'):
+                time.sleep(8)
+                image_path = "change_detection.png"  # Change this to the path of your image file
+                image = Image.open(image_path)
+                # Display the image
+                st.image(image, caption='Change Points', use_column_width=True)
+
 
 
     def run(self):
@@ -126,11 +146,13 @@ class app:
         st.header("SmartHome Savant Application")
         st.title("")
 
-        button_pressed = st.sidebar.radio("Select Option", ["Predictor", "Live Image Modelling", "Knowledge Extractor","Fine Tuned LLM Model"])
-
+        button_pressed = st.sidebar.radio("Select Option", ["Predictor", "Anomaly Detector","Live Image Modelling", "Knowledge Extractor","Fine Tuned LLM Model"])
+        model_temp = st.sidebar.selectbox("Select Model", ("Gemini", "OpenAI", "Gemma", "LLama3", "Mistral","Phi"))
         if button_pressed == "Predictor":
             # Add functionality for Option 1 here
             self.predictor()
+        elif button_pressed == "Anomaly Detector":
+            self.change_detector()
         elif button_pressed == "Live Image Modelling":
             print("radio butoon hit")
             self.image_handling()
@@ -150,7 +172,8 @@ class app:
         with st.sidebar:
             st.title("Knowledge Bases")
             st.caption("No API required for enterprise models")
-            model_temp = st.selectbox("Select Model", ("Gemini", "OpenAI", "LLama", "Mistral","Gemma","Phi"))
+            #model_temp = st.selectbox("Select Model", ("Gemini", "OpenAI", "LLama", "Mistral","Gemma","Phi"))
+
             urls = pdf = None
             urls = st.text_input("Enter URLs here")
             pdfs = st.file_uploader("Upload PDFs", accept_multiple_files=True)
